@@ -3,6 +3,7 @@
 require_once AGP_PLUGIN_PATH . 'includes/core/class-agp-cpt.php';
 require_once AGP_PLUGIN_PATH . 'includes/admin/class-agp-metaboxes.php';
 require_once AGP_PLUGIN_PATH . 'includes/frontend/class-agp-shortcodes.php';
+require_once AGP_PLUGIN_PATH . 'includes/frontend/class-agp-widget.php';
 
 class AGP_Loader {
 
@@ -34,6 +35,17 @@ class AGP_Loader {
         add_shortcode( 'another_gallery_card', [ $shortcodes, 'render_card' ] );
         add_shortcode( 'another_gallery_view', [ $shortcodes, 'render_gallery' ] );
         add_action( 'wp_enqueue_scripts', [ $shortcodes, 'enqueue_frontend_assets' ] );
+
+        // Frontend: Widgets
+        add_action( 'widgets_init', [ $this, 'register_widgets' ] ); // <--- 2. REGISTRAR HOOK
+    }
+
+    /**
+     * Registra los widgets del plugin.
+     * * @return void
+     */
+    public function register_widgets() {
+        register_widget( 'AGP_Widget' );
     }
 
     /**
