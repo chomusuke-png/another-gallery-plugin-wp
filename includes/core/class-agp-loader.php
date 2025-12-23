@@ -12,7 +12,7 @@ class AGP_Loader {
      * @return void
      */
     public function run() {
-        // 1. ¡NUEVO! Forzamos que aparezca la "Imagen Destacada" aunque el tema no quiera
+        // Forzamos soporte de Imagen Destacada
         add_action( 'after_setup_theme', [ $this, 'enable_theme_features' ] );
 
         // Core: CPT
@@ -34,13 +34,12 @@ class AGP_Loader {
         add_shortcode( 'another_gallery_card', [ $shortcodes, 'render_card' ] );
         add_shortcode( 'another_gallery_view', [ $shortcodes, 'render_gallery' ] );
         add_action( 'wp_enqueue_scripts', [ $shortcodes, 'enqueue_frontend_assets' ] );
-        
-        // Inyectar galería en la vista individual
-        add_filter( 'the_content', [ $shortcodes, 'inject_gallery_content' ] );
     }
 
     /**
      * Activa el soporte de imágenes destacadas globalmente.
+     *
+     * @return void
      */
     public function enable_theme_features() {
         if ( ! current_theme_supports( 'post-thumbnails' ) ) {
