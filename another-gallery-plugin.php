@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Another Gallery Plugin
  * Description: Plugin modular de galerías con estructura assets/includes.
- * Version: 1.1
+ * Version: 2.0
  * Author: Zumito
  * Text Domain: another-gallery-plugin
  */
