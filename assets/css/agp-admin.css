@@ -4,7 +4,7 @@
 
 /* Caja de Información (Shortcodes) */
 .agp-info-box {
-    background: #f0f6fc; /* Azul muy suave */
+    background: #f0f6fc;
     border: 1px solid #cce5ff;
     padding: 15px;
     border-radius: 5px;
@@ -56,14 +56,13 @@
 
 /* Estado Vacío */
 .agp-empty-placeholder {
-    display: none; /* Oculto por defecto */
+    display: none;
     width: 100%;
     text-align: center;
     color: #646970;
     padding: 20px;
 }
 
-/* Si el contenedor tiene la clase 'agp-is-empty', mostramos el mensaje */
 #agp-preview-container.agp-is-empty .agp-empty-placeholder {
     display: block;
 }
@@ -96,7 +95,7 @@
     display: block;
 }
 
-/* Acciones Hover (Eliminar) */
+/* Acciones Hover */
 .agp-img-actions {
     position: absolute;
     top: 0;
@@ -141,7 +140,26 @@
     background: #fcfcfc;
     padding: 15px;
     border: 1px solid #dcdcde;
-    border-top: none; /* Unir visualmente con el contenedor */
+    border-top: none;
     border-radius: 0 0 6px 6px;
-    margin-top: -20px; /* Pegar al contenedor */
+    margin-top: -20px;
+}
+
+/* CORRECCIÓN DEL BOTÓN */
+#agp-upload-btn {
+    display: inline-flex !important; /* Fuerza el uso de Flexbox */
+    align-items: center; /* Centra verticalmente */
+    justify-content: center; /* Centra horizontalmente */
+    gap: 8px; /* Espacio bonito entre el icono y el texto */
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/* Asegura que el icono no tenga márgenes extraños de WP */
+#agp-upload-btn .dashicons {
+    margin: 0 !important;
+    line-height: 1 !important;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
 }
