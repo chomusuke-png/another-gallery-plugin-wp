@@ -1,56 +1,108 @@
 /* =========================================
-   1. Estilo Tarjeta (Portada)
+   1. Estilo Tarjeta (Portada) - Modern UI
    ========================================= */
 .agp-card {
-    border: 1px solid #eaeaea;
-    background: #fff;
-    border-radius: 8px;
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    height: 500px;
+    border-radius: 16px;
     overflow: hidden;
-    width: 100%;
-    max-width: 350px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background-color: #000; /* Fondo base por si falla la imagen */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: pointer;
 }
 
-.agp-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-}
-
+/**
+ * La imagen ahora ocupa todo el espacio absoluto (Full Background).
+ * Se añade una transición suave para el efecto zoom.
+ */
 .agp-card-thumb {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: 220px;
+    height: 100%;
     background-size: cover;
     background-position: center;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    z-index: 1;
 }
 
+/**
+ * Gradiente superpuesto (Overlay).
+ * Crea legibilidad para el texto blanco sobre cualquier foto.
+ */
+.agp-card::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/**
+ * Contenedor del contenido (Título y Botón).
+ * Se posiciona absolutamente sobre el gradiente.
+ */
 .agp-card-body {
-    padding: 20px;
-    text-align: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 25px;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 
 .agp-card-title {
-    margin: 0 0 15px;
-    font-size: 1.1rem;
-    color: #2c3e50;
-    font-weight: 600;
+    margin: 0 0 8px;
+    font-size: 1.6rem;
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.2;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
+/**
+ * Botón "Ver Fotos".
+ * Inicialmente oculto (opacity: 0) y desplazado hacia abajo.
+ * Aparece suavemente al hacer hover en la tarjeta.
+ */
 .agp-btn {
     display: inline-block;
-    padding: 10px 24px;
-    background-color: #2271b1;
-    color: #fff;
+    padding: 12px 28px;
+    background-color: #fff;
+    color: #111;
     text-decoration: none;
     font-size: 0.9rem;
-    border-radius: 4px;
-    transition: background 0.3s;
+    font-weight: 600;
+    border-radius: 50px;
+    margin-top: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.agp-card:hover .agp-btn {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .agp-btn:hover {
-    background-color: #135e96;
-    color: #fff;
+    background-color: #f0f0f0;
+    color: #000;
+    transform: translateY(-2px);
 }
 
 /* =========================================
@@ -98,10 +150,8 @@
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: auto; /* Permite scroll si la descripción es muy larga */
+    overflow: auto; 
     background-color: rgba(0,0,0,0.9);
-    
-    /* Centrado */
     align-items: center;
     justify-content: center;
     opacity: 0;
@@ -113,21 +163,19 @@
     opacity: 1;
 }
 
-/* Contenedor flexible para imagen y texto */
 .agp-modal-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     max-width: 90%;
     max-height: 90vh;
-    margin: auto; /* Centrado vertical extra en móviles */
+    margin: auto; 
     padding: 20px 0;
 }
 
 .agp-modal-content {
     display: block;
     max-width: 100%;
-    /* Dejamos espacio (80vh) para que el texto (20vh aprox) quepa abajo sin salirse */
     max-height: 80vh; 
     width: auto;
     height: auto;
@@ -137,7 +185,6 @@
     animation: agp-zoom 0.3s;
 }
 
-/* Texto de descripción */
 #agp-caption-text {
     margin-top: 15px;
     color: #fff;
@@ -149,7 +196,6 @@
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
-/* Botón cerrar */
 .agp-close {
     position: absolute;
     top: 20px;
@@ -160,7 +206,7 @@
     cursor: pointer;
     z-index: 100000;
     transition: color 0.3s;
-    line-height: 1; /* Evita desplazamientos raros */
+    line-height: 1;
 }
 
 .agp-close:hover,
@@ -168,7 +214,6 @@
     color: #bbb;
 }
 
-/* Animación de entrada */
 @keyframes agp-zoom {
     from {transform:scale(0.8); opacity:0} 
     to {transform:scale(1); opacity:1}
