@@ -1,51 +1,147 @@
 /**
- * Estilos para el metabox de administración.
+ * Estilos Modernos para el Admin de Galería
  */
+
+/* Caja de Información (Shortcodes) */
+.agp-info-box {
+    background: #f0f6fc; /* Azul muy suave */
+    border: 1px solid #cce5ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.agp-info-item {
+    flex: 1;
+    min-width: 250px;
+}
+
+.agp-code-input {
+    width: 100%;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    color: #2271b1 !important;
+    font-family: monospace;
+    margin-top: 5px !important;
+    box-shadow: none !important;
+}
+
+.agp-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}
+
+/* Contenedor de Imágenes (Dropzone) */
 #agp-preview-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 15px;
-    min-height: 50px; /* Zona de drop visible */
-    border: 2px dashed #ddd; /* Feedback visual de zona interactiva */
-    padding: 10px;
-    background: #f9f9f9;
-    border-radius: 4px;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 2px dashed #dcdcde;
+    border-radius: 6px;
+    min-height: 120px;
+    transition: border-color 0.3s;
+    position: relative;
 }
 
+#agp-preview-container:hover {
+    border-color: #2271b1;
+}
+
+/* Estado Vacío */
+.agp-empty-placeholder {
+    display: none; /* Oculto por defecto */
+    width: 100%;
+    text-align: center;
+    color: #646970;
+    padding: 20px;
+}
+
+/* Si el contenedor tiene la clase 'agp-is-empty', mostramos el mensaje */
+#agp-preview-container.agp-is-empty .agp-empty-placeholder {
+    display: block;
+}
+
+.agp-empty-placeholder .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: #dcdcde;
+    margin-bottom: 10px;
+}
+
+/* Items de Imagen */
 .agp-img-wrapper {
     position: relative;
-    width: 100px;
-    height: 100px;
-    cursor: move; /* Indica que se puede mover */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    width: 110px;
+    height: 110px;
+    cursor: move;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: #fff;
+    border: 1px solid #dcdcde;
 }
 
 .agp-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 4px;
     display: block;
 }
 
-.agp-remove-img {
+/* Acciones Hover (Eliminar) */
+.agp-img-actions {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    background: #dc3232;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.agp-img-wrapper:hover .agp-img-actions {
+    opacity: 1;
+}
+
+.agp-remove-img {
     color: #fff;
+    background: #d63638;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    width: 20px;
-    height: 20px;
     text-align: center;
-    line-height: 20px;
-    font-size: 12px;
+    line-height: 28px;
+    font-size: 18px;
     cursor: pointer;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
-    transition: background 0.2s;
+    font-weight: bold;
+    transform: scale(0.9);
+    transition: transform 0.2s;
 }
 
 .agp-remove-img:hover {
-    background: #a00;
+    transform: scale(1.1);
+    background: #ff3333;
+}
+
+/* Barra de Botones */
+.agp-actions-bar {
+    text-align: center;
+    background: #fcfcfc;
+    padding: 15px;
+    border: 1px solid #dcdcde;
+    border-top: none; /* Unir visualmente con el contenedor */
+    border-radius: 0 0 6px 6px;
+    margin-top: -20px; /* Pegar al contenedor */
 }
