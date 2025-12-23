@@ -15,6 +15,10 @@ class AGP_Loader {
         // Core: CPT
         $cpt = new AGP_CPT();
         add_action( 'init', [ $cpt, 'register_post_type' ] );
+        
+        // Core: Columnas de Admin
+        add_filter( 'manage_agp_gallery_posts_columns', [ $cpt, 'add_admin_columns' ] );
+        add_action( 'manage_agp_gallery_posts_custom_column', [ $cpt, 'render_admin_columns' ], 10, 2 );
 
         // Admin: Metaboxes
         $metaboxes = new AGP_Metaboxes();

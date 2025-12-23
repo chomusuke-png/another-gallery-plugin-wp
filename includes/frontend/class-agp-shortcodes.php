@@ -2,35 +2,11 @@
 
 class AGP_Shortcodes {
 
-    /**
-     * Encola scripts y estilos del frontend desde la carpeta assets.
-     *
-     * @return void
-     */
     public function enqueue_frontend_assets() {
-        wp_enqueue_style( 
-            'agp-frontend-css', 
-            AGP_PLUGIN_URL . 'assets/css/agp-style.css', 
-            [], 
-            '1.1.0' 
-        );
-        
-        wp_enqueue_script( 
-            'agp-frontend-js', 
-            AGP_PLUGIN_URL . 'assets/js/agp-lightbox.js', 
-            [], 
-            '1.1.0', 
-            true 
-        );
+        wp_enqueue_style( 'agp-frontend-css', AGP_PLUGIN_URL . 'assets/css/agp-style.css', [], '1.1.0' );
+        wp_enqueue_script( 'agp-frontend-js', AGP_PLUGIN_URL . 'assets/js/agp-lightbox.js', [], '1.1.0', true );
     }
 
-    /**
-     * Renderiza la Card de portada.
-     * [another_gallery_card id="123"]
-     *
-     * @param array $atts
-     * @return string
-     */
     public function render_card( $atts ) {
         $atts = shortcode_atts( [ 'id' => 0 ], $atts );
         $post_id = intval( $atts['id'] );
@@ -39,28 +15,23 @@ class AGP_Shortcodes {
 
         $title = get_the_title( $post_id );
         $link  = get_permalink( $post_id );
-        $thumb = get_the_post_thumbnail_url( $post_id, 'medium_large' ); // Mejor calidad para card
+        // Nota: Asegúrate de usar 'agp-card-image' si tu CSS usa esa clase, o 'agp-card-thumb' si cambiaste el CSS.
+        // Basado en tu CSS provisto (agp-style.css), la clase correcta es 'agp-card-image'.
+        $thumb = get_the_post_thumbnail_url( $post_id, 'medium_large' ); 
 
         ob_start();
         ?>
         <div class="agp-card">
-            <div class="agp-card-thumb" style="background-image: url('<?php echo esc_url( $thumb ); ?>');"></div>
-            <div class="agp-card-body">
-                <h3 class="agp-card-title"><?php echo esc_html( $title ); ?></h3>
-                <a href="<?php echo esc_url( $link ); ?>" class="agp-btn">Ver Fotos</a>
+            <div class="agp-card-image" style="background-image: url('<?php echo esc_url( $thumb ); ?>');"></div>
+            <div class="agp-card-content">
+                <h3><?php echo esc_html( $title ); ?></h3>
+                <a href="<?php echo esc_url( $link ); ?>" class="agp-button">Ver Fotos</a>
             </div>
         </div>
         <?php
         return ob_get_clean();
     }
 
-    /**
-     * Renderiza la galería completa.
-     * [another_gallery_view]
-     *
-     * @param array $atts
-     * @return string
-     */
     public function render_gallery( $atts ) {
         $post_id = isset( $atts['id'] ) ? intval( $atts['id'] ) : get_the_ID();
         $ids = get_post_meta( $post_id, '_agp_image_ids', true );
@@ -71,12 +42,12 @@ class AGP_Shortcodes {
 
         ob_start();
         ?>
-        <div class="agp-grid-container">
+        <div class="agp-gallery-grid">
             <?php foreach ( $id_array as $img_id ) : 
                 $thumb = wp_get_attachment_image_url( $img_id, 'medium' );
-                $full  = wp_get_attachment_image_url( $img_id, 'large' ); // Full para lightbox
+                $full  = wp_get_attachment_image_url( $img_id, 'large' );
             ?>
-                <div class="agp-grid-item">
+                <div class="agp-gallery-item">
                     <img src="<?php echo esc_url( $thumb ); ?>" 
                          data-full="<?php echo esc_url( $full ); ?>" 
                          class="agp-lightbox-trigger" 
@@ -85,9 +56,9 @@ class AGP_Shortcodes {
             <?php endforeach; ?>
         </div>
         
-        <div id="agp-modal" class="agp-modal">
+        <div id="agp-lightbox" class="agp-lightbox">
             <span class="agp-close">&times;</span>
-            <img class="agp-modal-content" id="agp-modal-img">
+            <img class="agp-lightbox-content" id="agp-img-full">
         </div>
         <?php
         return ob_get_clean();

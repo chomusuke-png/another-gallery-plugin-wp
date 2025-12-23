@@ -1,0 +1,51 @@
+/**
+ * Estilos para el metabox de administración.
+ */
+#agp-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+    min-height: 50px; /* Zona de drop visible */
+    border: 2px dashed #ddd; /* Feedback visual de zona interactiva */
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.agp-img-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    cursor: move; /* Indica que se puede mover */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.agp-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+}
+
+.agp-remove-img {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #dc3232;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: background 0.2s;
+}
+
+.agp-remove-img:hover {
+    background: #a00;
+}

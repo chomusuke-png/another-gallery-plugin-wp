@@ -1,28 +1,47 @@
-/**
- * Lógica simple para el Lightbox de la galería.
- */
 document.addEventListener('DOMContentLoaded', function() {
-    var modal = document.getElementById("agp-lightbox");
-    var modalImg = document.getElementById("agp-img-full");
+    // Seleccionamos por ID según el HTML generado en el shortcode
+    var modal = document.getElementById("agp-modal");
+    var modalImg = document.getElementById("agp-modal-img");
     var triggers = document.querySelectorAll(".agp-lightbox-trigger");
-    var closeSpan = document.getElementsByClassName("agp-close")[0];
+    var closeSpan = document.querySelector(".agp-close");
 
     if (!modal) return;
 
+    // Abrir modal
     triggers.forEach(function(img) {
-        img.onclick = function() {
-            modal.style.display = "block";
-            modalImg.src = this.getAttribute('data-full');
-        }
+        img.addEventListener('click', function() {
+            var fullUrl = this.getAttribute('data-full');
+            if (fullUrl) {
+                modalImg.src = fullUrl;
+                modal.classList.add('show'); // Añadimos clase para activar el CSS Flexbox
+            }
+        });
     });
 
-    closeSpan.onclick = function() {
-        modal.style.display = "none";
+    // Función cerrar
+    function closeModal() {
+        modal.classList.remove('show');
+        setTimeout(function(){
+            modalImg.src = ''; // Limpiar src al cerrar
+        }, 300);
     }
 
-    modal.onclick = function(e) {
-        if(e.target === modal) {
-            modal.style.display = "none";
-        }
+    // Cerrar con la X
+    if (closeSpan) {
+        closeSpan.addEventListener('click', closeModal);
     }
+
+    // Cerrar al hacer clic fuera de la imagen
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Cerrar con tecla Escape
+    document.addEventListener('keydown', function(e) {
+        if (e.key === "Escape" && modal.classList.contains('show')) {
+            closeModal();
+        }
+    });
 });
