@@ -31,5 +31,8 @@ class AGP_Loader {
         add_shortcode( 'another_gallery_card', [ $shortcodes, 'render_card' ] );
         add_shortcode( 'another_gallery_view', [ $shortcodes, 'render_gallery' ] );
         add_action( 'wp_enqueue_scripts', [ $shortcodes, 'enqueue_frontend_assets' ] );
+        
+        // NUEVO: Inyectar la galería automáticamente en la vista individual (soluciona página vacía)
+        add_filter( 'the_content', [ $shortcodes, 'inject_gallery_content' ] );
     }
 }

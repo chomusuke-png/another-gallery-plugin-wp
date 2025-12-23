@@ -4,12 +4,12 @@
 .agp-card {
     border: 1px solid #eaeaea;
     background: #fff;
-    border-radius: 8px; /* Bordes redondeados */
+    border-radius: 8px;
     overflow: hidden;
     width: 100%;
     max-width: 350px;
     margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); /* Sombra suave */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -40,7 +40,7 @@
 .agp-btn {
     display: inline-block;
     padding: 10px 24px;
-    background-color: #2271b1; /* Azul WordPress estándar o tu color corporativo */
+    background-color: #2271b1;
     color: #fff;
     text-decoration: none;
     font-size: 0.9rem;
@@ -57,26 +57,24 @@
    2. Galería Grid (Tipo Masonry / Pinterest)
    ========================================= */
 .agp-grid-container {
-    /* Usamos columnas CSS para el efecto Masonry */
     column-count: 4;
     column-gap: 20px;
     width: 100%;
 }
 
-/* Responsive: Menos columnas en pantallas pequeñas */
 @media (max-width: 1024px) { .agp-grid-container { column-count: 3; } }
 @media (max-width: 768px)  { .agp-grid-container { column-count: 2; } }
 @media (max-width: 480px)  { .agp-grid-container { column-count: 1; } }
 
 .agp-grid-item {
-    break-inside: avoid; /* Evita que una imagen se parta entre columnas */
+    break-inside: avoid;
     margin-bottom: 20px;
     position: relative;
 }
 
 .agp-grid-item img {
     width: 100%;
-    height: auto !important; /* Mantiene la proporción original */
+    height: auto !important;
     display: block;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -86,11 +84,11 @@
 
 .agp-grid-item img:hover {
     filter: brightness(90%);
-    transform: scale(1.02); /* Pequeño zoom al pasar el mouse */
+    transform: scale(1.02);
 }
 
 /* =========================================
-   3. Lightbox (Modal Pantalla Completa)
+   3. Lightbox (Modal y Descripción)
    ========================================= */
 .agp-modal {
     display: none; 
@@ -100,32 +98,55 @@
     top: 0;
     width: 100%; 
     height: 100%; 
-    overflow: hidden; 
-    background-color: rgba(0,0,0,0.9); /* Fondo oscuro */
+    overflow: auto; /* Permite scroll si la descripción es muy larga */
+    background-color: rgba(0,0,0,0.9);
     
-    /* Centrado perfecto con Flexbox */
+    /* Centrado */
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease; /* Transición suave al abrir */
+    transition: opacity 0.3s ease;
 }
 
 .agp-modal.show {
-    display: flex !important; /* Flex es necesario para centrar */
+    display: flex !important;
     opacity: 1;
 }
 
+/* Contenedor flexible para imagen y texto */
+.agp-modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto; /* Centrado vertical extra en móviles */
+    padding: 20px 0;
+}
+
 .agp-modal-content {
-    margin: auto;
     display: block;
-    max-width: 90%;  /* Nunca más ancho que el 90% de la pantalla */
-    max-height: 90vh; /* Nunca más alto que el 90% de la pantalla */
+    max-width: 100%;
+    /* Dejamos espacio (80vh) para que el texto (20vh aprox) quepa abajo sin salirse */
+    max-height: 80vh; 
     width: auto;
     height: auto;
-    object-fit: contain; /* Asegura que se vea entera sin estirarse */
+    object-fit: contain;
     border-radius: 4px;
     box-shadow: 0 0 20px rgba(0,0,0,0.5);
     animation: agp-zoom 0.3s;
+}
+
+/* Texto de descripción */
+#agp-caption-text {
+    margin-top: 15px;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    max-width: 800px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
 /* Botón cerrar */
@@ -139,6 +160,7 @@
     cursor: pointer;
     z-index: 100000;
     transition: color 0.3s;
+    line-height: 1; /* Evita desplazamientos raros */
 }
 
 .agp-close:hover,

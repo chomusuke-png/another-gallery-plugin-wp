@@ -1,47 +1,43 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Seleccionamos por ID según el HTML generado en el shortcode
     var modal = document.getElementById("agp-modal");
     var modalImg = document.getElementById("agp-modal-img");
+    var captionText = document.getElementById("agp-caption-text"); // Capturamos la caja de texto
     var triggers = document.querySelectorAll(".agp-lightbox-trigger");
     var closeSpan = document.querySelector(".agp-close");
 
     if (!modal) return;
 
-    // Abrir modal
     triggers.forEach(function(img) {
         img.addEventListener('click', function() {
             var fullUrl = this.getAttribute('data-full');
+            var desc = this.getAttribute('data-desc'); // Leemos la descripción
+
             if (fullUrl) {
                 modalImg.src = fullUrl;
-                modal.classList.add('show'); // Añadimos clase para activar el CSS Flexbox
+                // Si hay descripción la mostramos, si no, limpiamos
+                if (captionText) captionText.textContent = desc ? desc : ''; 
+                modal.classList.add('show');
             }
         });
     });
 
-    // Función cerrar
     function closeModal() {
         modal.classList.remove('show');
         setTimeout(function(){
-            modalImg.src = ''; // Limpiar src al cerrar
+            modalImg.src = '';
+            if (captionText) captionText.textContent = ''; // Limpiar texto
         }, 300);
     }
 
-    // Cerrar con la X
-    if (closeSpan) {
-        closeSpan.addEventListener('click', closeModal);
-    }
-
-    // Cerrar al hacer clic fuera de la imagen
+    if (closeSpan) closeSpan.addEventListener('click', closeModal);
+    
     modal.addEventListener('click', function(e) {
-        if (e.target === modal) {
+        if (e.target === modal || e.target.classList.contains('agp-modal-wrapper')) {
             closeModal();
         }
     });
     
-    // Cerrar con tecla Escape
     document.addEventListener('keydown', function(e) {
-        if (e.key === "Escape" && modal.classList.contains('show')) {
-            closeModal();
-        }
+        if (e.key === "Escape" && modal.classList.contains('show')) closeModal();
     });
 });
