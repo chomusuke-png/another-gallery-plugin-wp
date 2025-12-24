@@ -3,9 +3,13 @@
 class AGP_Shortcodes {
 
     public function enqueue_frontend_assets() {
-        // Versión 1.4.0 para asegurar que se vean los cambios
-        wp_enqueue_style( 'agp-frontend-css', AGP_PLUGIN_URL . 'assets/css/agp-style.css', [], '1.4.0' );
-        wp_enqueue_script( 'agp-frontend-js', AGP_PLUGIN_URL . 'assets/js/agp-lightbox.js', [], '1.4.0', true );
+        // Encolamos los estilos modulares
+        wp_enqueue_style( 'agp-card-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-card.css', [], '2.3.0' );
+        wp_enqueue_style( 'agp-grid-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-grid.css', [], '2.3.0' );
+        wp_enqueue_style( 'agp-lightbox-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-lightbox.css', [], '2.3.0' );
+        
+        // JS del Lightbox
+        wp_enqueue_script( 'agp-frontend-js', AGP_PLUGIN_URL . 'assets/js/agp-lightbox.js', [], '2.3.0', true );
     }
 
     /**
@@ -15,7 +19,7 @@ class AGP_Shortcodes {
     public function render_card( $atts ) {
         $atts = shortcode_atts( [ 
             'id'  => 0,
-            'url' => '' // Nuevo parámetro opcional
+            'url' => ''
         ], $atts );
         
         $post_id = intval( $atts['id'] );
@@ -23,10 +27,7 @@ class AGP_Shortcodes {
         if ( ! $post_id || get_post_type( $post_id ) !== 'agp_gallery' ) return '';
 
         $title = get_the_title( $post_id );
-        
-        // Lógica Inteligente: Si pones URL manual, usa esa. Si no, intenta buscar el link automático.
         $link = ! empty( $atts['url'] ) ? $atts['url'] : get_permalink( $post_id );
-        
         $thumb = get_the_post_thumbnail_url( $post_id, 'medium_large' ); 
 
         ob_start();
@@ -59,8 +60,6 @@ class AGP_Shortcodes {
             <?php foreach ( $id_array as $img_id ) : 
                 $thumb = wp_get_attachment_image_url( $img_id, 'medium_large' );
                 $full  = wp_get_attachment_image_url( $img_id, 'full' );
-                
-                // Recuperamos la "Leyenda" de la imagen de WordPress
                 $attachment = get_post( $img_id );
                 $caption = $attachment->post_excerpt; 
             ?>

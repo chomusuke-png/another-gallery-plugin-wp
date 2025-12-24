@@ -1,0 +1,32 @@
+/* Caja de Información (Shortcodes) */
+.agp-info-box {
+    background: #f0f6fc;
+    border: 1px solid #cce5ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.agp-info-item {
+    flex: 1;
+    min-width: 250px;
+}
+
+.agp-code-input {
+    width: 100%;
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    color: #2271b1 !important;
+    font-family: monospace;
+    margin-top: 5px !important;
+    box-shadow: none !important;
+}
+
+.agp-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0;
+}

@@ -1,40 +1,3 @@
-/**
- * Estilos Modernos para el Admin de Galería
- */
-
-/* Caja de Información (Shortcodes) */
-.agp-info-box {
-    background: #f0f6fc;
-    border: 1px solid #cce5ff;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.agp-info-item {
-    flex: 1;
-    min-width: 250px;
-}
-
-.agp-code-input {
-    width: 100%;
-    background: #fff !important;
-    border: 1px solid #ddd !important;
-    color: #2271b1 !important;
-    font-family: monospace;
-    margin-top: 5px !important;
-    box-shadow: none !important;
-}
-
-.agp-divider {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 20px 0;
-}
-
 /* Contenedor de Imágenes (Dropzone) */
 #agp-preview-container {
     display: flex;
@@ -145,17 +108,15 @@
     margin-top: -20px;
 }
 
-/* CORRECCIÓN DEL BOTÓN */
 #agp-upload-btn {
-    display: inline-flex !important; /* Fuerza el uso de Flexbox */
-    align-items: center; /* Centra verticalmente */
-    justify-content: center; /* Centra horizontalmente */
-    gap: 8px; /* Espacio bonito entre el icono y el texto */
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-/* Asegura que el icono no tenga márgenes extraños de WP */
 #agp-upload-btn .dashicons {
     margin: 0 !important;
     line-height: 1 !important;

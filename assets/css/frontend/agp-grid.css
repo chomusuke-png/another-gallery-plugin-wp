@@ -1,0 +1,33 @@
+/* =========================================
+   Galería Grid (Tipo Masonry / Pinterest)
+   ========================================= */
+.agp-grid-container {
+    column-count: 4;
+    column-gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: 1024px) { .agp-grid-container { column-count: 3; } }
+@media (max-width: 768px)  { .agp-grid-container { column-count: 2; } }
+@media (max-width: 480px)  { .agp-grid-container { column-count: 1; } }
+
+.agp-grid-item {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.agp-grid-item img {
+    width: 100%;
+    height: auto !important;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: zoom-in;
+    transition: filter 0.3s, transform 0.3s;
+}
+
+.agp-grid-item img:hover {
+    filter: brightness(90%);
+    transform: scale(1.02);
+}

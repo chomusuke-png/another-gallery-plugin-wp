@@ -81,9 +81,15 @@ class AGP_Metaboxes {
         global $post;
         if ( ( 'post.php' === $hook || 'post-new.php' === $hook ) && 'agp_gallery' === $post->post_type ) {
             wp_enqueue_media();
-            // Versión 2.2.0 para refrescar
-            wp_enqueue_style( 'agp-admin-css', AGP_PLUGIN_URL . 'assets/css/agp-admin.css', [], '2.2.0' );
-            wp_enqueue_script( 'agp-admin-js', AGP_PLUGIN_URL . 'assets/js/agp-admin-uploader.js', [ 'jquery', 'jquery-ui-sortable' ], '2.2.0', true );
+            
+            // Estilos Admin UI (Shortcode Box)
+            wp_enqueue_style( 'agp-admin-ui-css', AGP_PLUGIN_URL . 'assets/css/admin/agp-ui.css', [], '2.3.0' );
+            
+            // Estilos Admin Uploader (Dropzone)
+            wp_enqueue_style( 'agp-admin-uploader-css', AGP_PLUGIN_URL . 'assets/css/admin/agp-uploader.css', [], '2.3.0' );
+            
+            // Script Uploader
+            wp_enqueue_script( 'agp-admin-js', AGP_PLUGIN_URL . 'assets/js/agp-admin-uploader.js', [ 'jquery', 'jquery-ui-sortable' ], '2.3.0', true );
         }
     }
 }

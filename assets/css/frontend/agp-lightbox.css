@@ -1,0 +1,79 @@
+/* =========================================
+   Lightbox (Modal y Descripción)
+   ========================================= */
+.agp-modal {
+    display: none; 
+    position: fixed; 
+    z-index: 99999; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.9);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.agp-modal.show {
+    display: flex !important;
+    opacity: 1;
+}
+
+.agp-modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto; 
+    padding: 20px 0;
+}
+
+.agp-modal-content {
+    display: block;
+    max-width: 100%;
+    max-height: 80vh; 
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    animation: agp-zoom 0.3s;
+}
+
+#agp-caption-text {
+    margin-top: 15px;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-family: sans-serif;
+    max-width: 800px;
+    line-height: 1.5;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.agp-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 100000;
+    transition: color 0.3s;
+    line-height: 1;
+}
+
+.agp-close:hover,
+.agp-close:focus {
+    color: #bbb;
+}
+
+@keyframes agp-zoom {
+    from {transform:scale(0.8); opacity:0} 
+    to {transform:scale(1); opacity:1}
+}
