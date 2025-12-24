@@ -4,12 +4,13 @@ class AGP_Shortcodes {
 
     public function enqueue_frontend_assets() {
         // Encolamos los estilos modulares
-        wp_enqueue_style( 'agp-card-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-card.css', [], '2.3.0' );
-        wp_enqueue_style( 'agp-grid-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-grid.css', [], '2.3.0' );
-        wp_enqueue_style( 'agp-lightbox-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-lightbox.css', [], '2.3.0' );
+        // NOTA: Si hiciste cambios recientes en CSS, recuerda subir la versión aquí (ej. '2.5.0')
+        wp_enqueue_style( 'agp-card-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-card.css', [], '2.4.0' );
+        wp_enqueue_style( 'agp-grid-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-grid.css', [], '2.4.0' );
+        wp_enqueue_style( 'agp-lightbox-css', AGP_PLUGIN_URL . 'assets/css/frontend/agp-lightbox.css', [], '2.4.0' );
         
         // JS del Lightbox
-        wp_enqueue_script( 'agp-frontend-js', AGP_PLUGIN_URL . 'assets/js/agp-lightbox.js', [], '2.3.0', true );
+        wp_enqueue_script( 'agp-frontend-js', AGP_PLUGIN_URL . 'assets/js/agp-lightbox.js', [], '2.4.0', true );
     }
 
     /**
@@ -28,7 +29,15 @@ class AGP_Shortcodes {
 
         $title = get_the_title( $post_id );
         $link = ! empty( $atts['url'] ) ? $atts['url'] : get_permalink( $post_id );
-        $thumb = get_the_post_thumbnail_url( $post_id, 'medium_large' ); 
+        
+        // CAMBIO: Usamos 'full' para obtener la imagen original sin compresión ni redimensión
+        $thumb = get_the_post_thumbnail_url( $post_id, 'full' ); 
+
+        // Fallback: Si no hay imagen destacada, usamos una por defecto o nada
+        if ( ! $thumb ) {
+            // Opcional: podrías poner una URL de imagen placeholder aquí
+            $thumb = ''; 
+        }
 
         ob_start();
         ?>
@@ -58,6 +67,8 @@ class AGP_Shortcodes {
         ?>
         <div class="agp-grid-container">
             <?php foreach ( $id_array as $img_id ) : 
+                // Aquí en la grilla quizás quieras mantener medium_large para no cargar lento la página,
+                // pero el 'full' se usa cuando abren el lightbox.
                 $thumb = wp_get_attachment_image_url( $img_id, 'medium_large' );
                 $full  = wp_get_attachment_image_url( $img_id, 'full' );
                 $attachment = get_post( $img_id );

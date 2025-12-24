@@ -1,19 +1,32 @@
 /* =========================================
-   Estilo Tarjeta (Portada) - Modern UI
+   Estilo Tarjeta (Portada) - Premium UI
    ========================================= */
 .agp-card {
     position: relative;
     width: 100%;
-    height: 500px;
-    border-radius: 16px;
+    height: 480px;
     overflow: hidden;
     margin-bottom: 30px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-    background-color: #000;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    
+    /* Sombra suave inicial */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background-color: #202020; /* Fondo oscuro por si carga lento la imagen */
+    
+    /* Transiciones suaves (Cubic Bezier para efecto "físico") */
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1),
+                box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    
     cursor: pointer;
+    isolation: isolate; /* Mejora el rendimiento de capas */
 }
 
+/* Efecto Hover: La tarjeta se "levanta" */
+.agp-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Imagen de Fondo */
 .agp-card-thumb {
     position: absolute;
     top: 0;
@@ -22,28 +35,41 @@
     height: 100%;
     background-size: cover;
     background-position: center;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Zoom lento y elegante */
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
+    will-change: transform;
 }
 
+/* Hover: Zoom a la imagen */
+.agp-card:hover .agp-card-thumb {
+    transform: scale(1.12);
+}
+
+/* Gradiente (Overlay) Mejorado */
 .agp-card::after {
     content: "";
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80%;
-    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+    inset: 0; /* Cubre todo */
+    /* Gradiente suave de abajo hacia arriba */
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85) 0%,
+        rgba(0, 0, 0, 0.5) 30%,
+        transparent 60%
+    );
     z-index: 2;
     pointer-events: none;
 }
 
+/* Cuerpo del contenido */
 .agp-card-body {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    padding: 30px 25px;
+    padding: 35px 30px; /* Más espacio interno */
     z-index: 3;
     display: flex;
     flex-direction: column;
@@ -51,37 +77,60 @@
     align-items: flex-start;
 }
 
+/* Título */
 .agp-card-title {
-    margin: 0 0 8px;
-    font-size: 1.6rem;
     color: #fff;
-    font-weight: 700;
-    line-height: 1.2;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-size: 1.8rem;
+    font-weight: 800; /* Letra gruesa */
+    line-height: 1.1;
+    margin: 0 0 8px;
+    letter-spacing: -0.5px; /* Tracking moderno */
+    text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    
+    /* Pequeño movimiento al hacer hover */
+    transform: translateY(0);
+    transition: transform 0.4s ease;
 }
 
+.agp-card:hover .agp-card-title {
+    transform: translateY(-5px); /* Sube un poco para dar espacio al botón */
+}
+
+/* Botón "Ver Fotos" */
 .agp-btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    
     padding: 12px 28px;
-    background-color: #fff;
-    color: #111;
-    text-decoration: none;
-    font-size: 0.9rem;
-    border-radius: 50px;
     margin-top: 15px;
+    
+    background-color: #ffffff;
+    color: #000000;
+    
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    border-radius: 50px;
+    
+    /* Estado inicial: Oculto y desplazado abajo */
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.4s ease;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
+/* Hover: Aparece el botón */
 .agp-card:hover .agp-btn {
     opacity: 1;
     transform: translateY(0);
 }
 
+/* Hover sobre el botón mismo */
 .agp-btn:hover {
-    background-color: #f0f0f0;
-    color: #000;
-    transform: translateY(-2px);
+    background-color: #f2f2f2;
+    transform: scale(1.05) translateY(0);
 }
