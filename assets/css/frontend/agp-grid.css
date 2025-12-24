@@ -1,5 +1,5 @@
 /* =========================================
-   Galería Grid (Tipo Masonry / Pinterest)
+   Galería Grid (Estilo Nude)
    ========================================= */
 .agp-grid-container {
     column-count: 4;
@@ -7,27 +7,50 @@
     width: 100%;
 }
 
-@media (max-width: 1024px) { .agp-grid-container { column-count: 3; } }
-@media (max-width: 768px)  { .agp-grid-container { column-count: 2; } }
+/* Responsividad */
+@media (max-width: 1200px) { .agp-grid-container { column-count: 3; } }
+@media (max-width: 800px)  { .agp-grid-container { column-count: 2; } }
 @media (max-width: 480px)  { .agp-grid-container { column-count: 1; } }
 
 .agp-grid-item {
     break-inside: avoid;
-    margin-bottom: 20px;
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 30px; /* Más espacio vertical */
     position: relative;
+    background: transparent !important; /* Asegura que no haya fondo */
+    box-shadow: none !important; /* Asegura que no haya sombra */
+    border: none !important;
+}
+
+/* Wrapper de la imagen */
+.agp-grid-image-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    line-height: 0;
+    box-shadow: none !important;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto Hover: Solo zoom interno sutil */
+.agp-grid-item:hover .agp-grid-image-wrap {
+    transform: scale(1.02);
 }
 
 .agp-grid-item img {
     width: 100%;
     height: auto !important;
     display: block;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     cursor: zoom-in;
-    transition: filter 0.3s, transform 0.3s;
 }
 
-.agp-grid-item img:hover {
-    filter: brightness(90%);
-    transform: scale(1.02);
+/* Estilo de la Leyenda */
+.agp-grid-caption {
+    padding: 4px 0 0 0; /* Espacio arriba del texto, cero a los lados */
+    font-size: 0.95rem;
+    color: #000;
+    line-height: 1.4;
+    text-align: left; /* Alineado a la izquierda como Pinterest */
+    background: transparent !important;
 }
